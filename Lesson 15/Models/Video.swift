@@ -9,8 +9,8 @@ import Foundation
 
 class Video: Identifiable, Codable {
     
-    var id: Int
-    var title: String
-    var url: String
+    public var id: Int
+    public var title: String
+    public var url: String
     
 }

@@ -33,23 +33,24 @@ struct ContentView: View {
                     }
                     
 
-                    NavigationLink {
-                        VideoDetailsView()
-                    } label: {
-                        List(0..<6) { item in
+                
+                        
+                    List  {
+                        ForEach(model.videos) { item in
                                 HStack {
-                                    Text("How To Make An App for Beginners 2021 / SwiftUI - Lesson 1")
+                                    Text(item.title)
                                         .multilineTextAlignment(.leading)
                                     Spacer()
                                     Image(systemName: "chevron.forward").foregroundColor(Color.gray
                                                                                             .opacity(0.4))
                                 }
                             }
+                    }
                             .listStyle(.inset)
                             .accentColor(.black)
-                        
-                    }.padding(.horizontal, -10)
-                        .padding(.trailing, 5)
+                            .padding(.horizontal, -10)
+                            .padding(.trailing, 5)
+    
                     
                     
                     
@@ -64,6 +65,6 @@ struct ContentView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        ContentView().environmentObject(VideoModel())
     }
 }

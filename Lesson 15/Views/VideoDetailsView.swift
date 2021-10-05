@@ -6,15 +6,29 @@
 //
 
 import SwiftUI
+import AVKit
 
 struct VideoDetailsView: View {
+    
+    @EnvironmentObject var model: VideoModel
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        
+        
+        GeometryReader { geo in
+            VStack (alignment: .leading) {
+                
+                Text(model.videos[model.currentIndexVideo].title).font(.largeTitle).bold().padding([.leading])
+                
+                VideoPlayer(player: AVPlayer(url:  URL(string: model.videos[model.currentIndexVideo].url)!))
+                    .frame(width: geo.size.width, height: 250, alignment: .center)
+            }
+        }
     }
 }
 
 struct VideoDetailsView_Previews: PreviewProvider {
     static var previews: some View {
-        VideoDetailsView()
+        VideoDetailsView().environmentObject(VideoModel())
     }
 }
