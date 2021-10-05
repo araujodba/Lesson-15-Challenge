@@ -29,7 +29,7 @@ struct ContentView: View {
                             TextField("Search movie", text: $movieName)
                                 .multilineTextAlignment(.leading)
                         }
-                        .padding(.horizontal, 30)
+                        .padding(.horizontal, 24)
                     }
                     
 
@@ -41,7 +41,8 @@ struct ContentView: View {
                                     Text("How To Make An App for Beginners 2021 / SwiftUI - Lesson 1")
                                         .multilineTextAlignment(.leading)
                                     Spacer()
-                                    Image(systemName: "chevron.forward")
+                                    Image(systemName: "chevron.forward").foregroundColor(Color.gray
+                                                                                            .opacity(0.4))
                                 }
                             }
                             .listStyle(.inset)
