@@ -18,12 +18,18 @@ struct VideoDetailsView: View {
         GeometryReader { geo in
             VStack (alignment: .leading) {
                 
-                Text(model.videos[model.currentIndexVideo].title).font(.largeTitle).bold().padding([.leading])
+                Text(model.videos[model.currentIndexVideo ?? 0].title)
+                    .font(.largeTitle)
+                    .bold()
+                    .padding([.leading])
                 
-                VideoPlayer(player: AVPlayer(url:  URL(string: model.videos[model.currentIndexVideo].url)!))
+                VideoPlayer(player: AVPlayer(url:  URL(string: model.videos[model.currentIndexVideo ?? 0].url)!))
                     .frame(width: geo.size.width, height: 250, alignment: .center)
             }
         }
+    }
+    init() {
+        
     }
 }
 

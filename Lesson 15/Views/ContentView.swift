@@ -36,15 +36,24 @@ struct ContentView: View {
                 
                         
                     List  {
-                        ForEach(model.videos) { item in
-                                HStack {
-                                    Text(item.title)
-                                        .multilineTextAlignment(.leading)
-                                    Spacer()
-                                    Image(systemName: "chevron.forward").foregroundColor(Color.gray
-                                                                                            .opacity(0.4))
-                                }
+                        ForEach(model.videos) { video in
+
+                            if video.title.lowercased().contains(movieName.lowercased()) || movieName == "" {
+                                NavigationLink(
+                                    destination: VideoDetailsView(),
+                                    tag:model.videos.firstIndex(where: {$0.id == video.id}) ?? 0,
+                                    selection: $model.currentIndexVideo,
+                                    label: {
+                                    HStack {
+                                        Text(video.title)
+                                            .multilineTextAlignment(.leading)
+                                        Spacer()
+                                        Image(systemName: "chevron.forward").foregroundColor(Color.gray
+                                                                                                .opacity(0.4))
+                                    }
+                                })
                             }
+                        }
                     }
                             .listStyle(.inset)
                             .accentColor(.black)
