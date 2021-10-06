@@ -11,32 +11,52 @@ struct ContentView: View {
     
     @State private var movieName: String = ""
     @EnvironmentObject var model: VideoModel
+    @State private var isSearching: Bool = false
+    
     
     var body: some View {
         
         NavigationView {
                 VStack (alignment: .leading) {
                     Divider()
-                    
-                    ZStack {
-                        RoundedRectangle(cornerRadius: 5, style: .continuous)
-                            .fill(Color.gray
-                                    .opacity(0.2))
-                            .background(Color.white)
-                            .frame(height: 32, alignment: .leading).padding(.horizontal, 20)
-                        HStack {
-                            Image(systemName: "magnifyingglass")
-                            TextField("Search movie", text: $movieName)
-                                .multilineTextAlignment(.leading)
+                    // MARK: Search TextField.
+                    HStack {
+                        ZStack {
+                            RoundedRectangle(cornerRadius: 5, style: .continuous)
+                                .fill(Color.gray
+                                        .opacity(0.2))
+                                .background(Color.white)
+                                .frame(height: 32, alignment: .leading)
+                                    .padding(.leading, 20)
+                                    .padding(.trailing, 16)
+                            HStack {
+                                Image(systemName: "magnifyingglass")
+                                TextField("Search movie", text: $movieName)
+                                    .multilineTextAlignment(.leading)
+                                    .onTapGesture {
+                                        isSearching = true
+                                    }
+                                    
+                                    
+                                    
+                            }
+                            .padding(.horizontal, 24)
                         }
-                        .padding(.horizontal, 24)
+                        if isSearching {
+                            Button {
+                                movieName = ""
+                                isSearching = false
+                            } label: {
+                                Text("Cancel")
+                            }.padding(.trailing, 24)
+                        }
                     }
+                    
                     
 
                 
                         
-                    List  {
-                        ForEach(model.videos) { video in
+                    List (model.videos) { video in
 
                             if video.title.lowercased().contains(movieName.lowercased()) || movieName == "" {
                                 NavigationLink(
@@ -47,13 +67,9 @@ struct ContentView: View {
                                     HStack {
                                         Text(video.title)
                                             .multilineTextAlignment(.leading)
-                                        Spacer()
-                                        Image(systemName: "chevron.forward").foregroundColor(Color.gray
-                                                                                                .opacity(0.4))
                                     }
                                 })
                             }
-                        }
                     }
                             .listStyle(.inset)
                             .accentColor(.black)
