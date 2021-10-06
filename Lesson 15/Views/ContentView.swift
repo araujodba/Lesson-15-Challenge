@@ -32,6 +32,7 @@ struct ContentView: View {
                             HStack {
                                 Image(systemName: "magnifyingglass")
                                 TextField("Search movie", text: $movieName)
+                                    
                                     .multilineTextAlignment(.leading)
                                     .onTapGesture {
                                         isSearching = true
